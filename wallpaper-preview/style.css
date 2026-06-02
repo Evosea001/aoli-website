@@ -1,0 +1,416 @@
+/* ============================================
+   动态壁纸预览页 — 暗色蓝紫主题
+   核心：CSS 绘制逼真设备外框
+   ============================================ */
+
+:root {
+  --bg-deep: #020212;
+  --text-primary: #e0e0f0;
+  --text-secondary: #8888aa;
+  --accent: #8b7cf0;
+  --accent-glow: #6e6ef0;
+  --border: rgba(120, 120, 220, 0.15);
+  --metal-dark: #1a1a2e;
+  --metal-light: #2a2a40;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ===== 星空画布 ===== */
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== Hero ===== */
+.hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 80px 20px 40px;
+}
+
+.hero-tag {
+  font-size: 0.7rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 300;
+  letter-spacing: 6px;
+  background: linear-gradient(180deg, #e8e0ff, #8b7cf0 60%, #4a30c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+
+.hero-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+.hero-hint {
+  font-size: 0.7rem;
+  color: var(--accent);
+  opacity: 0.6;
+  letter-spacing: 2px;
+  margin-top: 20px;
+}
+
+/* ===== 设备展示墙 ===== */
+.devices {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 50px 40px;
+  padding: 40px 20px 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* ===== 设备包装器 ===== */
+.device-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.device-wrapper:hover {
+  transform: translateY(-8px);
+}
+
+.device-wrapper:hover .device {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 30px rgba(110, 110, 240, 0.2),
+    0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.device-label {
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  color: var(--text-primary);
+}
+
+.device-spec {
+  font-size: 0.65rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+/* ===== 设备通用样式 ===== */
+.device {
+  position: relative;
+  background: linear-gradient(145deg, #2a2a3a, #1a1a2a);
+  border: 2px solid #333;
+  border-radius: 24px;
+  padding: 10px;
+  transition: border-color 0.4s, box-shadow 0.4s;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* 设备金属边框高光 */
+.device::before {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.device-screen {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #000;
+}
+
+.device-screen video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ===== 手机 ===== */
+.device.phone {
+  width: 200px;
+  border-radius: 28px;
+  padding: 12px 8px;
+}
+
+.device.phone::before {
+  border-radius: 26px;
+}
+
+.device.phone .device-screen {
+  aspect-ratio: 9 / 19;
+  border-radius: 16px;
+}
+
+/* 刘海 */
+.device-notch {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70px;
+  height: 6px;
+  background: #111;
+  border-radius: 0 0 10px 10px;
+  z-index: 3;
+}
+
+/* ===== 折叠屏 ===== */
+.device.foldable {
+  width: 300px;
+  border-radius: 20px;
+  padding: 10px;
+}
+
+.device.foldable::before {
+  border-radius: 18px;
+}
+
+.device.foldable .device-screen {
+  aspect-ratio: 4 / 3;
+  border-radius: 10px;
+}
+
+/* 折叠铰链 */
+.fold-hinge {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  bottom: 10px;
+  width: 3px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    180deg,
+    transparent 5%,
+    rgba(255, 255, 255, 0.08) 20%,
+    rgba(255, 255, 255, 0.12) 50%,
+    rgba(255, 255, 255, 0.08) 80%,
+    transparent 95%
+  );
+  z-index: 3;
+  border-radius: 3px;
+}
+
+/* ===== 平板/桌面 ===== */
+.device.tablet {
+  width: 380px;
+  border-radius: 18px;
+  padding: 10px;
+}
+
+.device.tablet::before {
+  border-radius: 16px;
+}
+
+.device.tablet .device-screen {
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+}
+
+/* ===== 车机 — 带鱼屏中控 ===== */
+.device.car {
+  width: 520px;
+  border-radius: 20px 20px 18px 18px;
+  padding: 12px 10px;
+  /* 模拟中控台嵌入感：上窄下宽微梯形 */
+  background: linear-gradient(
+    160deg,
+    #1e1e32 0%,
+    #1a1a2e 30%,
+    #222238 100%
+  );
+  border: 2px solid #2a2a3e;
+  /* 底部更厚的边框模拟嵌入中控台 */
+  box-shadow:
+    0 4px 0 #151520,
+    0 6px 0 #111118,
+    0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.device.car::before {
+  border-radius: 16px 16px 14px 14px;
+}
+
+.device.car .device-screen {
+  aspect-ratio: 28 / 9;
+  border-radius: 8px 8px 6px 6px;
+}
+
+/* 车机下方中控台装饰条 */
+.device.car::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: 8px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.06) 20%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0.06) 80%,
+    transparent
+  );
+  border-radius: 0 0 4px 4px;
+  z-index: 3;
+}
+
+/* ===== 灯箱 ===== */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(2, 2, 18, 0.94);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s ease;
+}
+
+.lightbox.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-label {
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.lightbox-video {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  transform: scale(0.95);
+  transition: transform 0.35s ease;
+  box-shadow: 0 0 60px rgba(110, 110, 240, 0.2);
+}
+
+.lightbox.show .lightbox-video {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 30px;
+  right: 40px;
+  font-size: 2.2rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.3s;
+  line-height: 1;
+  z-index: 10000;
+}
+
+.lightbox-close:hover {
+  color: var(--text-primary);
+}
+
+/* ===== 页脚 ===== */
+.footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 40px 20px 60px;
+  border-top: 1px solid var(--border);
+}
+
+.back-link {
+  display: inline-block;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.85rem;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+  transition: color 0.3s;
+}
+
+.back-link:hover {
+  color: var(--accent-glow);
+}
+
+.footer p {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .devices {
+    gap: 30px 16px;
+    padding: 20px 12px 60px;
+  }
+
+  .device.phone {
+    width: 150px;
+    padding: 8px 6px;
+  }
+
+  .device.foldable {
+    width: 220px;
+  }
+
+  .device.tablet {
+    width: 280px;
+  }
+
+  .device.car {
+    width: 340px;
+  }
+
+  .hero {
+    padding: 50px 16px 30px;
+  }
+
+  .device-notch {
+    width: 50px;
+    height: 4px;
+    top: 8px;
+  }
+}

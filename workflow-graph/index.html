@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 视觉工作流 — 交互节点图</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 星空背景 -->
+  <canvas id="starfield"></canvas>
+
+  <div class="container">
+
+    <!-- ===== 标题 ===== -->
+    <header class="header">
+      <p class="header-tag">AI VISUAL WORKFLOW · INTERACTIVE</p>
+      <h1>AI 视觉工作流</h1>
+      <p class="header-sub">点击节点查看详情 · 从灵感到动态落地</p>
+    </header>
+
+    <!-- ===== 节点图 ===== -->
+    <div class="graph-wrapper" id="graphWrapper">
+      <!-- SVG 连接线 -->
+      <svg class="connections" id="connectionsSvg" viewBox="0 0 1160 200" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="rgba(139,124,240,0.1)"/>
+            <stop offset="50%" stop-color="rgba(139,124,240,0.5)"/>
+            <stop offset="100%" stop-color="rgba(139,124,240,0.1)"/>
+          </linearGradient>
+        </defs>
+
+        <!-- 连线1: 节点1→节点2 -->
+        <path d="M170,100 C260,60 300,60 390,100" class="conn-path"/>
+        <circle r="3" fill="#8b7cf0" class="flow-dot">
+          <animateMotion dur="2s" repeatCount="indefinite" path="M170,100 C260,60 300,60 390,100"/>
+        </circle>
+
+        <!-- 连线2: 节点2→节点3 -->
+        <path d="M410,100 C500,60 540,60 630,100" class="conn-path"/>
+        <circle r="3" fill="#8b7cf0" class="flow-dot">
+          <animateMotion dur="2s" repeatCount="indefinite" begin="0.5s" path="M410,100 C500,60 540,60 630,100"/>
+        </circle>
+
+        <!-- 连线3: 节点3→节点4 -->
+        <path d="M650,100 C740,60 780,60 870,100" class="conn-path"/>
+        <circle r="3" fill="#8b7cf0" class="flow-dot">
+          <animateMotion dur="2s" repeatCount="indefinite" begin="1s" path="M650,100 C740,60 780,60 870,100"/>
+        </circle>
+
+        <!-- 连线4: 节点4→节点5 -->
+        <path d="M890,100 C980,60 1020,60 1110,100" class="conn-path"/>
+        <circle r="3" fill="#8b7cf0" class="flow-dot">
+          <animateMotion dur="2s" repeatCount="indefinite" begin="1.5s" path="M890,100 C980,60 1020,60 1110,100"/>
+        </circle>
+      </svg>
+
+      <!-- 节点们 -->
+      <div class="nodes-row" id="nodesRow">
+
+        <div class="node" data-index="0" data-step="01">
+          <div class="node-num">01</div>
+          <h3>需求理解</h3>
+          <p>确定主题与应用场景</p>
+        </div>
+
+        <div class="node" data-index="1" data-step="02">
+          <div class="node-num">02</div>
+          <h3>灵感探索</h3>
+          <p>MJ + 可灵多方向生成</p>
+        </div>
+
+        <div class="node" data-index="2" data-step="03">
+          <div class="node-num">03</div>
+          <h3>风格控制</h3>
+          <p>色彩/材质/光感统一</p>
+        </div>
+
+        <div class="node" data-index="3" data-step="04">
+          <div class="node-num">04</div>
+          <h3>Blender</h3>
+          <p>建模 · 动画 · 渲染</p>
+        </div>
+
+        <div class="node" data-index="4" data-step="05">
+          <div class="node-num">05</div>
+          <h3>动态落地</h3>
+          <p>多终端适配与交付</p>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ===== 详情面板 ===== -->
+    <div class="detail-panel" id="detailPanel">
+      <div class="detail-inner">
+        <span class="detail-step" id="detailStep">01</span>
+        <h2 class="detail-title" id="detailTitle">需求理解</h2>
+        <div class="detail-body">
+          <div class="detail-col">
+            <h4>做什么</h4>
+            <p id="detailWhat"></p>
+          </div>
+          <div class="detail-col">
+            <h4>使用工具</h4>
+            <p id="detailTools"></p>
+          </div>
+          <div class="detail-col">
+            <h4>关键要点</h4>
+            <p id="detailKey"></p>
+          </div>
+        </div>
+        <p class="detail-hint">点击其他节点切换 · 再次点击当前节点收起</p>
+      </div>
+    </div>
+
+    <!-- ===== 底部按钮 ===== -->
+    <div class="controls">
+      <button class="ctrl-btn primary" id="autoPlayBtn">自动演示</button>
+      <button class="ctrl-btn" id="resetBtn">重置</button>
+      <a href="../index.html" class="ctrl-btn link">← 返回作品集</a>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

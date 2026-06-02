@@ -1,0 +1,472 @@
+/* ============================================
+   李大海 作品集 — 视觉增强层 v2.0
+   设计师级优化：配色精炼、动效升级、排版调优
+   ============================================ */
+
+/* ===== 1. 配色优化 — 更高级的色调 ===== */
+:root {
+  /* 保留原有变量，新增增强变量 */
+  --accent-gradient: linear-gradient(135deg, #8b7cf0, #6e6ef0, #5ee8e0);
+  --accent-warm: #c9a96e;
+  --glass-bg: rgba(10, 10, 32, 0.6);
+  --glass-border: rgba(120, 120, 220, 0.08);
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 16px 48px rgba(110, 110, 240, 0.15);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+}
+
+/* ===== 2. 排版优化 ===== */
+body {
+  font-family: "Inter", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* 渐变文字 — 关键标题用渐变 */
+.gradient-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== 3. 滚动触发动画系统 ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-scale {
+  opacity: 0;
+  transform: scale(0.92);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-scale.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* 错开时间 — 子元素依次出现 */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-5 { transition-delay: 0.5s; }
+
+/* ===== 4. 区块过渡 — 渐变色带 ===== */
+.section-transition {
+  height: 1px;
+  width: 80%;
+  max-width: 600px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, transparent, rgba(139, 124, 240, 0.3), transparent);
+}
+
+/* ===== 5. 卡片悬停增强 ===== */
+.project-card {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  will-change: transform;
+}
+
+.project-card:hover {
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--border-hover);
+}
+
+/* 卡片内图片悬停放大 */
+.project-card img,
+.project-card .card-image {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.project-card:hover img,
+.project-card:hover .card-image {
+  transform: scale(1.03);
+}
+
+/* ===== 6. 图片悬停效果 — 轻微放大 + 遮罩光效 ===== */
+.image-wrapper {
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.image-wrapper::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(139, 124, 240, 0), rgba(139, 124, 240, 0.1));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.image-wrapper:hover::after {
+  opacity: 1;
+}
+
+.image-wrapper img {
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  height: auto;
+}
+
+.image-wrapper:hover img {
+  transform: scale(1.05);
+}
+
+/* ===== 7. 按钮悬停增强 ===== */
+.cta-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cta-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cta-btn:hover::after {
+  opacity: 1;
+}
+
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(139, 124, 240, 0.25);
+}
+
+.cta-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== 8. 导航栏增强 ===== */
+.navbar {
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+.nav-links a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent-gradient);
+  transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ===== 9. 标题装饰线 ===== */
+.section-title,
+h2.section-title {
+  position: relative;
+  display: inline-block;
+}
+
+.section-title::after,
+h2.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--accent-gradient);
+  border-radius: 2px;
+}
+
+/* 居中标题的装饰线 */
+.section-header .section-title::after {
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+}
+
+/* ===== 10. 技能标签动画 ===== */
+.skill-tag, 
+.hero-capabilities span,
+[class*="skill"] {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-tag:hover,
+.hero-capabilities span:hover,
+[class*="skill"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 16px rgba(139, 124, 240, 0.2);
+}
+
+/* ===== 11. 首屏增强 ===== */
+.hero {
+  position: relative;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 50%, rgba(110, 110, 240, 0.06), transparent 60%);
+  pointer-events: none;
+}
+
+.hero-name {
+  background: linear-gradient(135deg, #e0e0f0 0%, #8b7cf0 50%, #5ee8e0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===== 12. 滚动进度条增强 ===== */
+.progress-bar {
+  background: linear-gradient(90deg, #8b7cf0, #5ee8e0, #c9a96e);
+  background-size: 200% 100%;
+  animation: progressGradient 3s ease-in-out infinite;
+}
+
+@keyframes progressGradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ===== 13. 区块分割渐变 ===== */
+.section {
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  max-width: 400px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(139, 124, 240, 0.15), transparent);
+  pointer-events: none;
+}
+
+/* 第一个section不需要顶部分割线 */
+.section:first-of-type::before {
+  display: none;
+}
+
+/* ===== 14. 数字统计动效 ===== */
+.stat-number {
+  display: inline-block;
+  font-size: 2rem;
+  font-weight: 800;
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== 15. 图片/视频卡片光效 ===== */
+.glow-border {
+  position: relative;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.glow-border::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(135deg, rgba(139, 124, 240, 0.3), transparent, rgba(94, 232, 224, 0.3));
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.glow-border:hover::before {
+  opacity: 1;
+}
+
+/* ===== 16. 响应式微调 ===== */
+@media (max-width: 768px) {
+  .reveal,
+  .reveal-left,
+  .reveal-right,
+  .reveal-scale {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .hero-name {
+    animation: none;
+  }
+}
+
+/* ===== 17. 选择文本颜色 ===== */
+::selection {
+  background: rgba(139, 124, 240, 0.3);
+  color: #fff;
+}
+
+/* ===== 18. 加载动画增强 ===== */
+.loader {
+  background: radial-gradient(ellipse at center, #0a0a20, #020212);
+}
+
+.loader-text {
+  background: var(--accent-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== 19. 滚动条美化 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-deep);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #8b7cf0, #5ee8e0);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #9b8cff, #6ef8f0);
+}
+
+/* ===== 20. 背景光晕增强 ===== */
+.orb-1 {
+  animation: orbFloat 20s ease-in-out infinite;
+}
+
+.orb-2 {
+  animation: orbFloat 25s ease-in-out infinite reverse;
+}
+
+.orb-3 {
+  animation: orbFloat 15s ease-in-out infinite 5s;
+}
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25% { transform: translate(30px, -30px) scale(1.05); }
+  50% { transform: translate(-20px, 20px) scale(0.95); }
+  75% { transform: translate(20px, -10px) scale(1.02); }
+}
+
+/* ===== 21. 几何装饰旋转 ===== */
+.geo-ring-1 {
+  animation: ringRotate 60s linear infinite;
+}
+
+.geo-ring-2 {
+  animation: ringRotate 45s linear infinite reverse;
+}
+
+.geo-diamond {
+  animation: diamondSpin 30s linear infinite;
+}
+
+@keyframes ringRotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes diamondSpin {
+  to { transform: rotate(405deg); }
+}
+
+/* ===== 22. 联系方式按钮悬停 ===== */
+.contact-item {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.contact-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ===== 23. 项目标签微效 ===== */
+.project-badge {
+  letter-spacing: 3px;
+  position: relative;
+  display: inline-block;
+}
+
+/* ===== 24. 中英双语标签 ===== */
+.lang-toggle {
+  backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.lang-toggle:hover {
+  transform: translateY(-1px);
+}
+
+/* ===== 25. 移动端菜单按钮 ===== */
+@media (max-width: 768px) {
+  .nav-links {
+    background: rgba(2, 2, 18, 0.98);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+}

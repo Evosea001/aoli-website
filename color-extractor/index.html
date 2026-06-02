@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 色彩析出工具</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="starfield"></canvas>
+
+  <div class="container">
+
+    <!-- ===== 标题 ===== -->
+    <header class="header">
+      <p class="header-tag">COLOR EXTRACTOR · MEDIAN CUT ALGORITHM</p>
+      <h1>AI 色彩析出工具</h1>
+      <p class="header-sub">拖入图片，自动分析主色调 · 点击色块复制色值</p>
+    </header>
+
+    <!-- ===== 上传区 ===== -->
+    <div class="upload-zone" id="uploadZone">
+      <input type="file" accept="image/*" id="fileInput" hidden>
+      <div class="upload-icon">&#x1F5BC;</div>
+      <p>拖拽图片到此处</p>
+      <span>或点击选择文件</span>
+    </div>
+
+    <!-- ===== 结果区（初始隐藏） ===== -->
+    <div class="result" id="result" style="display:none;">
+
+      <!-- 原图预览 -->
+      <div class="preview-row">
+        <img id="previewImg" alt="原图预览">
+        <div class="preview-info">
+          <p id="previewSize"></p>
+          <span id="previewColors">提取 8 个主色调</span>
+        </div>
+      </div>
+
+      <!-- 色板 -->
+      <div class="palette" id="palette"></div>
+
+      <!-- 复制提示 -->
+      <div class="toast" id="toast">已复制</div>
+    </div>
+
+    <!-- ===== 算法说明（折叠） ===== -->
+    <div class="algo-toggle" id="algoToggle">了解提取算法 ▼</div>
+    <div class="algo-detail" id="algoDetail">
+      <h3>中位切分算法（Median Cut）</h3>
+      <div class="algo-steps">
+        <div class="algo-step">
+          <span class="step-num">1</span>
+          <p>将图片所有像素的 RGB 值放入一个"颜色盒子"</p>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">2</span>
+          <p>找到 R/G/B 中范围最大的通道，按该通道中位数切分为两个盒子</p>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">3</span>
+          <p>递归切分直到得到 8 个盒子</p>
+        </div>
+        <div class="algo-step">
+          <span class="step-num">4</span>
+          <p>每个盒子取平均色 → 按像素占比排序 → 生成色板</p>
+        </div>
+      </div>
+      <p class="algo-note">这是一个经典的计算机图形学算法，广泛用于图像压缩和色调提取。此工具纯前端实现，图片不会上传到任何服务器。</p>
+    </div>
+
+    <!-- ===== 底部 ===== -->
+    <div class="controls">
+      <a href="../index.html" class="ctrl-btn link">← 返回作品集</a>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

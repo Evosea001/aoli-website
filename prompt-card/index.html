@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Prompt 卡片生成器</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="app">
+
+    <!-- ====== 左侧控制面板 ====== -->
+    <aside class="panel" id="panel">
+
+      <header class="panel-header">
+        <h1>Prompt 卡片生成器</h1>
+        <p>输入参数，实时生成精美展示卡片</p>
+      </header>
+
+      <!-- 正向Prompt -->
+      <label class="field">
+        <span>正向提示词</span>
+        <textarea id="promptInput" rows="4" placeholder="输入你的Prompt关键词...&#10;例如：东方幻想, 山茶花, 半透明花瓣, 柔和光感, 中心构图"></textarea>
+      </label>
+
+      <!-- 负向Prompt -->
+      <label class="field">
+        <span>负向提示词</span>
+        <textarea id="negativeInput" rows="2" placeholder="例如：模糊, 噪点, 变形, 杂乱背景"></textarea>
+      </label>
+
+      <!-- 模型选择 -->
+      <div class="field-row">
+        <label class="field">
+          <span>模型</span>
+          <select id="modelSelect">
+            <option value="Stable Diffusion" selected>Stable Diffusion</option>
+            <option value="ComfyUI">ComfyUI</option>
+            <option value="Midjourney">Midjourney</option>
+            <option value="DALL·E 3">DALL·E 3</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>分辨率</span>
+          <select id="resolutionSelect">
+            <option value="1024×1024">1024×1024</option>
+            <option value="768×1344" selected>768×1344</option>
+            <option value="1344×768">1344×768</option>
+            <option value="2048×1024">2048×1024</option>
+          </select>
+        </label>
+      </div>
+
+      <!-- 参数滑块 -->
+      <div class="field-row">
+        <label class="field slider-field">
+          <span>Steps: <strong id="stepsVal">20</strong></span>
+          <input type="range" id="stepsSlider" min="1" max="50" value="20">
+        </label>
+        <label class="field slider-field">
+          <span>CFG Scale: <strong id="cfgVal">7</strong></span>
+          <input type="range" id="cfgSlider" min="1" max="20" value="7" step="0.5">
+        </label>
+      </div>
+
+      <!-- Seed -->
+      <label class="field">
+        <span>Seed <em>（-1 = 随机）</em></span>
+        <input type="number" id="seedInput" value="-1" min="-1" max="999999999">
+      </label>
+
+      <!-- 风格标签 -->
+      <div class="field">
+        <span>风格标签 <em>（点击选中/取消）</em></span>
+        <div class="tag-group" id="tagGroup">
+          <button class="tag" data-tag="东方幻想">东方幻想</button>
+          <button class="tag" data-tag="赛博朋克">赛博朋克</button>
+          <button class="tag" data-tag="电影感">电影感</button>
+          <button class="tag" data-tag="极简">极简</button>
+          <button class="tag" data-tag="柔和光感">柔和光感</button>
+          <button class="tag" data-tag="暗黑">暗黑</button>
+          <button class="tag" data-tag="奇幻">奇幻</button>
+          <button class="tag" data-tag="复古">复古</button>
+        </div>
+      </div>
+
+      <!-- 配色切换 -->
+      <div class="field">
+        <span>卡片配色</span>
+        <div class="theme-switcher" id="themeSwitcher">
+          <button class="theme-dot active" data-theme="purple" title="暗紫"></button>
+          <button class="theme-dot" data-theme="gold" title="金黑"></button>
+          <button class="theme-dot" data-theme="cyan" title="青蓝"></button>
+          <button class="theme-dot" data-theme="rose" title="玫红"></button>
+        </div>
+      </div>
+
+      <!-- 按钮行 -->
+      <div class="panel-actions">
+        <button class="btn primary" id="randomBtn">随机填充</button>
+        <button class="btn" id="resetBtn">重置</button>
+        <a href="../index.html" class="btn link">← 返回作品集</a>
+      </div>
+    </aside>
+
+    <!-- ====== 右侧预览区 ====== -->
+    <main class="preview" id="preview">
+      <p class="preview-label">实时预览</p>
+
+      <div class="prompt-card" id="promptCard">
+        <!-- 顶部标签行 -->
+        <div class="card-header">
+          <span class="card-model" id="cardModel">Stable Diffusion</span>
+          <div class="card-tags" id="cardTags"></div>
+        </div>
+
+        <!-- 主Prompt文字 -->
+        <div class="card-body">
+          <p class="card-prompt" id="cardPrompt">东方幻想, 山茶花, 半透明花瓣</p>
+          <p class="card-negative" id="cardNegative"></p>
+        </div>
+
+        <!-- 底部参数 -->
+        <div class="card-footer">
+          <div class="card-param">
+            <span class="param-label">Steps</span>
+            <span class="param-value" id="cardSteps">20</span>
+          </div>
+          <div class="card-param">
+            <span class="param-label">CFG</span>
+            <span class="param-value" id="cardCfg">7</span>
+          </div>
+          <div class="card-param">
+            <span class="param-label">Seed</span>
+            <span class="param-value" id="cardSeed">-1</span>
+          </div>
+          <div class="card-param">
+            <span class="param-label">Size</span>
+            <span class="param-value" id="cardSize">768×1344</span>
+          </div>
+        </div>
+
+        <!-- 装饰水印 -->
+        <div class="card-watermark">AI PROMPT CARD</div>
+      </div>
+
+      <p class="preview-hint" id="previewHint">截图保存为作品卡片 →</p>
+    </main>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

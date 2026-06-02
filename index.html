@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>李大海 — AI视觉设计作品集</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/enhancements.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ========== 页面加载动画 ========== -->
+  <div class="loader" id="loader">
+    <div class="loader-text">LI DAHAI</div>
+    <div class="loader-line"></div>
+  </div>
+
+  <!-- ========== 自定义光标 ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- ========== 滚动进度条 ========== -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ========== 背景光晕球（视差） ========== -->
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+  <div class="bg-orb orb-3"></div>
+
+  <!-- ========== 抽象几何装饰 ========== -->
+  <div class="geo-decor geo-ring-1"></div>
+  <div class="geo-decor geo-ring-2"></div>
+  <div class="geo-decor geo-diamond"></div>
+  <div class="geo-decor geo-line"></div>
+
+  <!-- ========== 星空粒子画布 ========== -->
+  <canvas id="starfield"></canvas>
+
+  <!-- ========== 导航栏 ========== -->
+  <nav class="navbar" id="navbar">
+    <span class="nav-logo">李大海</span>
+    <ul class="nav-links">
+      <li><a href="#ai-visual">AI视觉</a></li>
+      <li><a href="#motion">动态视频</a></li>
+      <li><a href="#platform">平台理解</a></li>
+      <li><a href="#creative">创意实验</a></li>
+      <li><a href="#ai-engine">AI创意引擎</a></li>
+      <li><a href="#about">关于</a></li>
+      <li><a href="#contact">联系</a></li>
+      <li><a href="prompt-card/index.html" class="nav-tool">Prompt生成器</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== Hero 首屏 ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-content" id="heroContent">
+      <div class="hero-tilt-layer" id="heroTilt">
+        <p class="hero-tagline">AI VISUAL DESIGN · BLENDER MOTION · CONTENT COMMUNICATION</p>
+        <h1 class="hero-name">李大海</h1>
+        <p class="hero-role">AI视觉设计师 · AI辅助编程实践者</p>
+        <p class="hero-desc">以AI视觉生成、三维动态和传播理解为核心的复合型创作者</p>
+      <p class="hero-cta">
+        <a href="简历.jpg" class="cta-btn" target="_blank">下载简历</a>
+        <a href="#contact" class="cta-btn secondary">联系我</a>
+      </p>
+      </div>
+      <div class="hero-capabilities">
+        <span>Stable Diffusion</span>
+        <span>ComfyUI</span>
+        <span>Blender</span>
+        <span>Midjourney</span>
+        <span>动态视觉</span>
+        <span>平台传播</span>
+      </div>
+      </div>
+    </div>
+    <div class="scroll-hint">
+      <span>向下探索</span>
+      <div class="scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ========== AI视觉项目 ========== -->
+  <section class="section" id="ai-visual">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2 class="section-title">AI视觉项目</h2>
+      <p class="section-sub">AI Visual Projects</p>
+    </div>
+
+    <!-- 项目1：华为动态壁纸 -->
+    <div class="project-card featured reveal reveal-delay-1">
+      <div class="project-meta">
+        <span class="project-badge">PROJECT 01</span>
+        <span class="project-year">2025 · 校企合作项目</span>
+      </div>
+      <h3 class="project-title">华为高校动态壁纸设计</h3>
+      <p class="project-desc">与华为合作的校企项目。结合云南民族文化，探索AI动态视觉在移动端壁纸中的应用。建立民族视觉风格体系，适配HarmonyOS动态场景，提升年轻用户审美体验。</p>
+      <div class="project-process">
+        <div class="process-step">
+          <div class="step-icon inspiration"></div>
+          <h4>灵感来源</h4>
+          <p>山茶花、民族纹样、花瓣结构、自然植被</p>
+        </div>
+        <div class="process-step">
+          <div class="step-icon strategy"></div>
+          <h4>视觉策略</h4>
+          <p>东方幻想 · 柔和色彩 × 动态感 · 中心构图 · 半透明材质 · 冷暖渐变</p>
+        </div>
+        <div class="process-step">
+          <div class="step-icon workflow"></div>
+          <h4>AI工作流</h4>
+          <p>Reference → ControlNet → Stable Diffusion → Style Control → Blender → Render</p>
+        </div>
+      </div>
+
+      <!-- 成果展示图片网格 （图片来自PPT第6页） -->
+      <h4 class="sub-heading">成果展示</h4>
+      <div class="image-grid">
+        <div class="image-card tall">
+          <img src="images/slide06_img20.png" alt="主视觉展示" loading="lazy">
+          <span class="image-label">主视觉 · 手机端</span>
+        </div>
+        <div class="image-card">
+          <img src="images/slide06_img24.png" alt="折叠屏展示" loading="lazy">
+          <span class="image-label">折叠屏</span>
+        </div>
+        <div class="image-card">
+          <img src="images/slide06_img28.png" alt="桌面场景" loading="lazy">
+          <span class="image-label">桌面场景</span>
+        </div>
+        <div class="image-card wide">
+          <img src="images/slide06_img16.jpeg" alt="车机延展" loading="lazy">
+          <span class="image-label">车机延展</span>
+        </div>
+      </div>
+
+      <!-- 多终端动态壁纸预览 -->
+      <h4 class="sub-heading">多终端动态预览</h4>
+      <p class="project-desc" style="margin-bottom:8px;">悬停设备查看详情 · 点击放大播放 · 视频自动循环</p>
+
+      <div class="device-wall">
+        <!-- 手机 -->
+        <div class="device-wrapper" data-device="手机端 · 动态壁纸">
+          <div class="device phone">
+            <div class="device-screen">
+              <video src="videos/动态壁纸.mp4" muted loop playsinline></video>
+            </div>
+            <div class="device-notch"></div>
+          </div>
+          <span class="device-label">手机</span>
+          <span class="device-spec">6.7" · 20:9</span>
+        </div>
+
+        <!-- 折叠屏 -->
+        <div class="device-wrapper" data-device="折叠屏 · 展开态">
+          <div class="device foldable">
+            <div class="device-screen">
+              <video src="videos/动态壁纸.mp4" muted loop playsinline></video>
+            </div>
+            <div class="fold-hinge"></div>
+          </div>
+          <span class="device-label">折叠屏</span>
+          <span class="device-spec">8.0" · 展开态</span>
+        </div>
+
+        <!-- 桌面场景 -->
+        <div class="device-wrapper" data-device="桌面场景 · 品牌质感">
+          <div class="device tablet">
+            <div class="device-screen">
+              <video src="videos/动态壁纸.mp4" muted loop playsinline></video>
+            </div>
+          </div>
+          <span class="device-label">桌面场景</span>
+          <span class="device-spec">16:10 · 品牌适配</span>
+        </div>
+
+        <!-- 车机 -->
+        <div class="device-wrapper" data-device="车机延展 · 带鱼屏中控">
+          <div class="device car">
+            <div class="device-screen">
+              <video src="videos/动态壁纸.mp4" muted loop playsinline></video>
+            </div>
+          </div>
+          <span class="device-label">车机延展</span>
+          <span class="device-spec">28:9 · 多屏适配</span>
+        </div>
+      </div>
+
+      <p style="text-align:center; margin-top:8px;">
+        <a href="wallpaper-preview/index.html" class="preview-link">全屏查看多终端预览 →</a>
+      </p>
+
+      <!-- 项目收获 -->
+      <div class="takeaway-box">
+        <h4>项目收获</h4>
+        <ul>
+          <li><strong>视觉方向</strong> — 将民族元素转化为更年轻的东方幻想语言</li>
+          <li><strong>流程沉淀</strong> — 建立AI + Blender的完整制作链路</li>
+          <li><strong>商业表达</strong> — 让动态壁纸同时兼顾审美与终端适配</li>
+        </ul>
+        <p class="takeaway-quote">"AI提高的是前期探索效率；真正决定完成度的，仍是后续的风格判断、动态制作与场景适配。"</p>
+      </div>
+    </div>
+
+    <!-- 项目2：车机壁纸 -->
+    <div class="project-card">
+      <div class="project-meta">
+        <span class="project-badge">PROJECT 02</span>
+        <span class="project-year">车机方案</span>
+      </div>
+      <h3 class="project-title">智舱光域 — 车机壁纸方案</h3>
+      <p class="project-desc">通过AI建立光弧、地平线、夜景等视觉方向。保留低饱和深蓝背景与柔和光感，降低界面干扰。验证横向构图、多屏延展和品牌质感。</p>
+      <div class="image-grid">
+        <div class="image-card">
+          <img src="images/slide18_img20.png" alt="AI初稿探索" loading="lazy">
+          <span class="image-label">AI初稿探索</span>
+        </div>
+        <div class="image-card">
+          <img src="images/slide18_img37.png" alt="风格控制后" loading="lazy">
+          <span class="image-label">风格收敛</span>
+        </div>
+        <div class="image-card">
+          <img src="images/slide18_img38.png" alt="最终采纳版本" loading="lazy">
+          <span class="image-label">最终采纳版本</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 动态视频项目 ========== -->
+  <section class="section" id="motion">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2 class="section-title">动态视频项目</h2>
+      <p class="section-sub">Motion Video Projects</p>
+    </div>
+
+    <!-- 毕业设计：山茶花 -->
+    <div class="project-card featured reveal reveal-delay-1">
+      <div class="project-meta">
+        <span class="project-badge">毕业设计</span>
+        <span class="project-year">国风 / AI / 动态视觉</span>
+      </div>
+      <h3 class="project-title">山茶花动态视觉设计</h3>
+      <p class="project-desc">以山茶花为视觉母题，构建适配多终端的动态视觉方案。文化意象转化 × 动态壁纸表达 × 移动端场景适配。</p>
+
+      <!-- 视频占位 -->
+      <div class="video-showcase">
+        <div class="video-placeholder" data-video="videos/毕设.mp4">
+        <div class="video-placeholder" data-video="videos/毕设.mp4">
+          <span>点击播放毕设视频</span>
+        </div>
+        <p class="video-caption" style="text-align:center; margin-top:8px;"></p>
+        </div>
+      </div>
+
+      <!-- 设计策略 -->
+      <h4 class="sub-heading">动态设计策略</h4>
+      <div class="strategy-flow">
+        <div class="strategy-item"><strong>HOOK</strong>前3秒高对比画面抓注意力</div>
+        <div class="strategy-arrow">→</div>
+        <div class="strategy-item"><strong>FOCUS</strong>由局部到整体推进</div>
+        <div class="strategy-arrow">→</div>
+        <div class="strategy-item"><strong>RHYTHM</strong>镜头节奏逐步放大信息</div>
+        <div class="strategy-arrow">→</div>
+        <div class="strategy-item"><strong>SCENE</strong>终端场景强化产品体验</div>
+        <div class="strategy-arrow">→</div>
+        <div class="strategy-item"><strong>CLIMAX</strong>冷色光感维持幻想沉浸</div>
+      </div>
+
+      <!-- 场景拆解 -->
+      <h4 class="sub-heading">视觉系统拆解</h4>
+      <div class="breakdown-grid">
+        <div class="breakdown-card">
+          <h4>寰宇星空场景</h4>
+          <p>宇宙星空与环形星体建立寰宇背景</p>
+        </div>
+        <div class="breakdown-card">
+          <h4>折叠屏展示</h4>
+          <p>由手机特写到折叠屏展开，再到多设备组合</p>
+        </div>
+        <div class="breakdown-card">
+          <h4>羽翼动态壁纸</h4>
+          <p>蓝紫羽翼形态 + 中心对称构图</p>
+        </div>
+        <div class="breakdown-card">
+          <h4>调色情绪</h4>
+          <p>黑灰底与蓝紫高光强化未来感</p>
+        </div>
+      </div>
+
+      <!-- 最终关键帧 -->
+      <h4 class="sub-heading">最终关键帧序列</h4>
+      <div class="keyframes">
+        <div class="keyframe"><img src="images/slide11_img18.jpeg" alt="18s" loading="lazy"><span>18s</span></div>
+        <div class="keyframe"><img src="images/slide11_img20.jpeg" alt="20s" loading="lazy"><span>20s</span></div>
+        <div class="keyframe"><img src="images/slide11_img22.jpeg" alt="26s" loading="lazy"><span>26s</span></div>
+        <div class="keyframe"><img src="images/slide11_img24.jpeg" alt="30s" loading="lazy"><span>30s</span></div>
+        <div class="keyframe"><img src="images/slide11_img26.jpeg" alt="34s" loading="lazy"><span>34s</span></div>
+        <div class="keyframe"><img src="images/slide11_img28.jpeg" alt="39s" loading="lazy"><span>39s</span></div>
+        <div class="keyframe"><img src="images/slide11_img30.jpeg" alt="40s" loading="lazy"><span>40s</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 平台内容理解 ========== -->
+  <section class="section" id="platform">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2 class="section-title">平台内容理解</h2>
+      <p class="section-sub">Platform Content Strategy</p>
+    </div>
+
+    <div class="project-card">
+      <p class="project-desc" style="text-align:center; max-width:600px; margin:0 auto 40px;">
+        同一份视觉内容，在不同的平台上需要不同的包装方式。
+        让作品不仅完成表达，也更适合被看见、被理解和被传播。
+      </p>
+      <div class="platform-grid">
+        <!-- 小红书 -->
+        <div class="platform-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h4>小红书</h4>
+              <span class="platform-keyword">搜索 / 收藏</span>
+              <p>用户主动找壁纸、教程、灵感。标题与标签要清晰，画面要有辨识度。</p>
+              <span class="flip-hint">点击翻转 →</span>
+            </div>
+            <div class="card-back">
+              <h4>AI视觉启示</h4>
+              <p>不只是好看，还要<strong>可搜索、可理解、可收藏</strong>。壁纸、Prompt、合集更适合传播。</p>
+            </div>
+          </div>
+        </div>
+        <!-- 抖音 -->
+        <div class="platform-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h4>抖音</h4>
+              <span class="platform-keyword">停留 / 节奏</span>
+              <p>前3秒抓人，动态展示强化吸引力。适合强动态视觉与快速转场。</p>
+              <span class="flip-hint">点击翻转 →</span>
+            </div>
+            <div class="card-back">
+              <h4>AI视觉启示</h4>
+              <p>前3秒用<strong>高对比画面</strong>迅速建立视觉主体，动态转场比静态更适合推荐流。</p>
+            </div>
+          </div>
+        </div>
+        <!-- B站 -->
+        <div class="platform-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h4>B站</h4>
+              <span class="platform-keyword">深度 / 系列</span>
+              <p>注重信息量与完整过程。适合工作流拆解、教程、系列内容。</p>
+              <span class="flip-hint">点击翻转 →</span>
+            </div>
+            <div class="card-back">
+              <h4>AI视觉启示</h4>
+              <p>用户想看<strong>过程和思考</strong>，适合把AI工作流完整展示，建立专业信任。</p>
+            </div>
+          </div>
+        </div>
+        <!-- 视频号 -->
+        <div class="platform-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <h4>视频号</h4>
+              <span class="platform-keyword">社交 / 转发</span>
+              <p>熟人信任与可转发性。适合成品展示、轻量传播、品牌感内容。</p>
+              <span class="flip-hint">点击翻转 →</span>
+            </div>
+            <div class="card-back">
+              <h4>AI视觉启示</h4>
+              <p>重视<strong>直观成果和品牌质感</strong>，适合最终成品展示和轻量视觉传播。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 内容执行思路 -->
+      <h4 class="sub-heading" style="margin-top:50px;">内容执行思路</h4>
+      <div class="content-flow">
+        <div class="flow-step">
+          <span class="flow-num">01</span>
+          <strong>选题判断</strong>
+          <p>用户需求 → 内容类型 → 视觉卖点</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">02</span>
+          <strong>封面包装</strong>
+          <p>视觉主体 + 标题层级 + 风格统一</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">03</span>
+          <strong>内容结构</strong>
+          <p>首图吸引 → 第二张呈现价值</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">04</span>
+          <strong>发布优化</strong>
+          <p>关键词 / 标签 / 互动引导</p>
+        </div>
+        <div class="flow-step">
+          <span class="flow-num">05</span>
+          <strong>数据复盘</strong>
+          <p>点击 / 收藏 / 评论 → 优化建议</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AI创意实验 ========== -->
+  <section class="section" id="creative">
+    <div class="section-header reveal">
+      <span class="section-num">05</span>
+      <h2 class="section-title">AI创意实验</h2>
+      <p class="section-sub">Creative AI Lab · 角色 / 分镜 / IP视觉</p>
+    </div>
+
+    <div class="project-card featured">
+      <p class="project-desc" style="text-align:center; max-width:650px; margin:0 auto 36px;">
+        使用 ChatGPT image2 等AI工具进行角色视觉、广告IP和视频分镜的创意探索。
+        以下作品展示AI辅助创意从概念到可视化的完整过程。
+      </p>
+
+      <!-- 跳转大卡片 -->
+      <a href="creative-lab/index.html" class="creative-jump-card">
+        <div class="jump-preview">
+          <span class="jump-icon">&#x1F3A8;</span>
+          <div>
+            <h3>角色视觉 · 分镜设计 · IP炫彩 · 视频分镜</h3>
+            <p>ChatGPT image2 / Midjourney / 可灵 — 完整创意过程展示，含成果图、过程迭代与个人思考</p>
+          </div>
+        </div>
+        <span class="jump-arrow">进入创意实验室 →</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== 更多工具 ========== -->
+  <section class="section" id="tools">
+    <div class="section-header reveal">
+      <h2 class="section-title">更多工具</h2>
+      <p class="section-sub">Interactive Tools</p>
+    </div>
+
+    <div class="tools-grid">
+      <!-- Prompt卡片生成器 -->
+      <a href="prompt-card/index.html" class="tool-card">
+        <div class="tool-icon">&#x1F4DD;</div>
+        <h3>Prompt 卡片生成器</h3>
+        <p>输入AI参数实时生成精美展示卡片。四套配色，支持SD/ComfyUI/Midjourney。</p>
+        <span class="tool-arrow">打开 →</span>
+      </a>
+
+      <!-- 动态壁纸预览（已有独立页） -->
+      <a href="wallpaper-preview/index.html" class="tool-card">
+        <div class="tool-icon">&#x1F4F1;</div>
+        <h3>多终端动态预览</h3>
+        <p>手机/折叠屏/桌面/车机四种设备模拟，实时播放动态壁纸效果。</p>
+        <span class="tool-arrow">打开 →</span>
+      </a>
+
+      <!-- AI工作流节点图 -->
+      <a href="workflow-graph/index.html" class="tool-card">
+        <div class="tool-icon">&#x1F517;</div>
+        <h3>AI 工作流节点图</h3>
+        <p>交互式展示AI视觉生产全流程。5步从灵感到交付，MJ+可灵→风格控制→Blender→动态落地。</p>
+        <span class="tool-arrow">打开 →</span>
+      </a>
+
+      <!-- AI色彩析出工具 -->
+      <a href="color-extractor/index.html" class="tool-card">
+        <div class="tool-icon">&#x1F3A8;</div>
+        <h3>AI 色彩析出工具</h3>
+        <p>拖入图片自动提取8个主色调。Median Cut算法实现，点击色块复制HEX色值。</p>
+        <span class="tool-arrow">打开 →</span>
+      </a>
+
+      <!-- 未来更多工具占位 -->
+      <!--
+      <a href="#" class="tool-card coming-soon">
+        <div class="tool-icon">&#x1F3A8;</div>
+        <h3>即将上线</h3>
+        <p>更多AI视觉工具开发中...</p>
+        <span class="tool-badge">COMING SOON</span>
+      </a>
+      -->
+    </div>
+  </section>
+
+  <!-- ========== AI 创意引擎 ========== -->
+  <section class="section" id="ai-engine">
+    <div class="section-header reveal">
+      <span class="section-num">06</span>
+      <h2 class="section-title">AI 创意引擎</h2>
+      <p class="section-sub">AI Creative Engine · DeepSeek × ChatGPT × Seedance</p>
+    </div>
+
+    <div class="project-card featured">
+      <div class="project-meta">
+        <span class="project-badge">FULL-STACK PROJECT</span>
+        <span class="project-year">2026 · 独立开发</span>
+      </div>
+      <h3 class="project-title">多模型协同的AI创意生产工具</h3>
+      <p class="project-desc">
+        基于 DeepSeek API 开发的全栈 AI 创意工具。输入粗略想法，AI 自动扩写为专业级图像提示词、视频分镜脚本或品牌设计简报，可直接对接 ChatGPT、Seedance 2.0 等工具完成视觉与音视频落地。
+      </p>
+
+      <!-- 技术栈 -->
+      <div class="tech-stack">
+        <span>Next.js</span>
+        <span>TypeScript</span>
+        <span>DeepSeek API</span>
+        <span>React</span>
+        <span>Tailwind CSS</span>
+        <span>Prompt Engineering</span>
+        <span>全栈开发</span>
+      </div>
+
+      <!-- 三种模式 -->
+      <h4 class="sub-heading">三种专业生成模式</h4>
+      <div class="mode-grid">
+        <div class="mode-card">
+          <div class="mode-icon">🎨</div>
+          <h4>图像提示词</h4>
+          <p>粗略想法 → 专业级AI绘图提示词。输出写实摄影、数字艺术、电影感三种风格版本，含参数建议。</p>
+        </div>
+        <div class="mode-card">
+          <div class="mode-icon">🎬</div>
+          <h4>视频脚本</h4>
+          <p>创意概念 → 完整分镜脚本。包含画面描述、运镜、光线、音效，可直接导入 Seedance 生成视频。</p>
+        </div>
+        <div class="mode-card">
+          <div class="mode-icon">💡</div>
+          <h4>设计简报</h4>
+          <p>品牌需求 → 视觉创意方案。输出色彩方案、字体建议、创意概念和 AI 工具落地路径。</p>
+        </div>
+      </div>
+
+      <!-- AI管线图 -->
+      <h4 class="sub-heading">AI 创意生产管线</h4>
+      <div class="pipeline-flow">
+        <div class="pipeline-node">
+          <span class="pipeline-num">01</span>
+          <h4>DeepSeek</h4>
+          <p>创意生成 · 策略策划</p>
+        </div>
+        <span class="pipeline-arrow">→</span>
+        <div class="pipeline-node">
+          <span class="pipeline-num">02</span>
+          <h4>ChatGPT</h4>
+          <p>视觉图形生成</p>
+        </div>
+        <span class="pipeline-arrow">→</span>
+        <div class="pipeline-node">
+          <span class="pipeline-num">03</span>
+          <h4>Seedance 2.0</h4>
+          <p>音视频内容生成</p>
+        </div>
+        <span class="pipeline-arrow">→</span>
+        <div class="pipeline-node highlight">
+          <span class="pipeline-num">04</span>
+          <h4>最终成片</h4>
+          <p>多模态创意输出</p>
+        </div>
+      </div>
+
+      <!-- 项目亮点 -->
+      <div class="takeaway-box">
+        <h4>项目亮点</h4>
+        <ul>
+          <li><strong>全栈独立开发</strong> — 前端到后端、API 对接到 UI 设计均独立完成，使用 Next.js + TypeScript 技术栈</li>
+          <li><strong>Prompt Engineering</strong> — 针对三种模式编写结构化 System Prompt，输出内容可直接用于专业 AI 工具</li>
+          <li><strong>多模态管线</strong> — 串联 DeepSeek（文本）→ ChatGPT（图像）→ Seedance（视频），构建完整 AI 辅助创作工作流</li>
+          <li><strong>设计即开发</strong> — 作为设计师理解创作流程，同时能用代码将其工具化，体现 AI Native 复合能力</li>
+        </ul>
+      </div>
+
+      <!-- 截图预览 -->
+      <h4 class="sub-heading">界面预览</h4>
+      <div class="screenshot-grid">
+        <img src="images/j1.png" alt="AI 创意引擎主界面" class="screenshot-img" loading="lazy">
+        <img src="images/j2.png" alt="生成结果展示" class="screenshot-img" loading="lazy">
+        <img src="images/j3.png" alt="历史画廊" class="screenshot-img" loading="lazy">
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; margin-top:28px;">
+        <a href="../ai-image-lab/启动.bat" class="preview-link" target="_blank">启动 AI 创意引擎（本地运行）</a>
+        <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:10px;letter-spacing:1px;">
+          Next.js + TypeScript + DeepSeek API · 双击即启动
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 关于我 ========== -->
+  <section class="section" id="about">
+    <div class="section-header reveal">
+      <span class="section-num">00</span>
+      <h2 class="section-title">关于我</h2>
+      <p class="section-sub">About Me · AI视觉设计师 × AI编程实践者</p>
+    </div>
+    <div class="about-content">
+
+      <!-- ===== 1. 个人定位 ===== -->
+      <div class="about-hero">
+        <h3 class="about-tagline">从AI工具使用者，到AI视觉创作者，再到AI编程实践者</h3>
+        <p class="about-intro">
+          我是李大海，最初像许多设计同学一样，用Midjourney和可灵生成视觉素材——但我不满足于"生成即交付"。我开始追问：AI视觉如何真正落地到产品和场景中？这个追问带我走进了Blender三维制作，又带我走进了AI辅助编程的世界。<br><br>
+          在零编程基础的情况下，我通过AI协作从零学会了HTML/CSS/JavaScript，独立搭建了你现在看到的这个作品集网站——包括动态壁纸预览、Prompt卡片生成器、交互式工作流节点图和色彩析出工具等交互应用。更进一步，我使用 Next.js + TypeScript + DeepSeek API 独立开发了「AI 创意引擎」全栈 Web 应用，实现从创意输入到专业提示词/脚本/方案的全自动生成管线。这不仅是技术能力的证明，更代表我作为"AI Native创作者"的工作方式：<strong>用AI拓展边界，用编程实现想法，用设计审美把关输出。</strong>
+        </p>
+      </div>
+
+      <!-- ===== 2. 教育背景 ===== -->
+      <div class="edu-block">
+        <div class="edu-card">
+          <h4>云南艺术学院</h4>
+          <p>数字媒体艺术 · 本科 · 2026届</p>
+        </div>
+      </div>
+
+      <!-- ===== 3. 技能矩阵 ===== -->
+      <h4 class="sub-heading">技能矩阵</h4>
+      <div class="skill-grid">
+        <div class="skill-card">
+          <h4>AI视觉生成</h4>
+          <p>Midjourney · 可灵Kling · Stable Diffusion · ComfyUI</p>
+        </div>
+        <div class="skill-card">
+          <h4>三维动态</h4>
+          <p>Blender 建模 · 动画 · 材质 · Cycles 渲染</p>
+        </div>
+        <div class="skill-card">
+          <h4>视觉设计</h4>
+          <p>海报 · 品牌视觉 · 动态壁纸 · 终端适配</p>
+        </div>
+        <div class="skill-card">
+          <h4>平台理解</h4>
+          <p>封面包装 · 内容结构 · 小红书/抖音/B站策略</p>
+        </div>
+        <div class="skill-card">
+          <h4>AI辅助编程</h4>
+          <p>HTML/CSS/JS · Claude Code · 提示词工程</p>
+        </div>
+        <div class="skill-card">
+          <h4>前端 & 全栈开发</h4>
+          <p>Next.js · TypeScript · React · Canvas · API对接 · 交互工具</p>
+        </div>
+      </div>
+
+      <!-- ===== 3. 本站建设故事 ===== -->
+      <h4 class="sub-heading">本站是如何建成的</h4>
+      <div class="build-story">
+        <div class="build-text">
+          <p>
+            作为一个零编程基础的数字媒体学生，我通过<strong>与AI（Claude Code）结对编程</strong>的方式，从零开始搭建了这个作品集网站。整个过程不是"AI帮我写代码"——而是"我和AI讨论设计方案、迭代视觉细节、调试交互逻辑"，我负责审美判断和产品决策，AI辅助实现。
+          </p>
+          <div class="build-stats">
+            <div class="build-stat">
+              <span class="stat-num">6</span>
+              <span class="stat-label">独立页面</span>
+            </div>
+            <div class="build-stat">
+              <span class="stat-num">5</span>
+              <span class="stat-label">交互工具</span>
+            </div>
+            <div class="build-stat">
+              <span class="stat-num">12+</span>
+              <span class="stat-label">交互效果</span>
+            </div>
+            <div class="build-stat">
+              <span class="stat-num">2</span>
+              <span class="stat-label">全栈项目</span>
+            </div>
+          </div>
+          <p>
+            从暗色蓝紫视觉主题的设计定调，到星空粒子Canvas背景的实现，到设备模拟框的CSS绘制，再到Median Cut算法的JavaScript实现——每一步都是AI辅助下从零学习、即时应用的结果。这个网站本身就是我<strong>"AI Native工作能力"的最佳案例</strong>。
+          </p>
+        </div>
+        <!-- 技术栈标签 -->
+        <div class="tech-stack">
+          <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+          <span>Next.js</span><span>TypeScript</span><span>React</span>
+          <span>DeepSeek API</span><span>Canvas API</span><span>SVG</span>
+          <span>Claude Code</span><span>Git</span><span>Netlify</span>
+        </div>
+        <!-- 截图占位：建站过程 -->
+        <div class="build-screenshots">
+          <p class="screenshot-hint">建站过程截图（可放入对话截图、迭代版本对比等）</p>
+          <div class="screenshot-grid">
+            <img src="images/guoc1.png" alt="建站过程截图1" class="screenshot-img" loading="lazy">
+            <img src="images/guoc2.png" alt="建站过程截图2" class="screenshot-img" loading="lazy">
+            <img src="images/guoc3.png" alt="建站过程截图3" class="screenshot-img" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== 4. 成长时间线 ===== -->
+      <h4 class="sub-heading">成长历程</h4>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-phase">阶段一</span>
+            <h4>AI工具使用者</h4>
+            <p>使用Midjourney、可灵、Stable Diffusion生成视觉内容，积累AI视觉审美和Prompt工程经验。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <span class="timeline-phase">阶段二</span>
+            <h4>AI视觉创作者</h4>
+            <p>结合Blender三维制作，将AI生成的概念转化为可落地的动态视觉。完成华为动态壁纸、山茶花毕设等项目。</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-content">
+            <span class="timeline-phase">阶段三 · 现在</span>
+            <h4>AI编程实践者</h4>
+            <p>通过AI辅助编程掌握HTML/CSS/JS，独立开发交互式作品集网站和多个前端工具，拓展了创作的边界。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== AI工作流展示 ========== -->
+  <section class="section" id="workflow">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2 class="section-title">AI工作流与商业应用</h2>
+      <p class="section-sub">Workflow & Application</p>
+    </div>
+    <div class="project-card" style="text-align:center;">
+      <div class="workflow-chain">
+        <span>需求理解</span><span class="chain-arrow">→</span>
+        <span>AI生成</span><span class="chain-arrow">→</span>
+        <span>风格控制</span><span class="chain-arrow">→</span>
+        <span>Blender</span><span class="chain-arrow">→</span>
+        <span>动态落地</span>
+      </div>
+      <p class="project-desc" style="margin-top:16px;">
+        AI提升前期探索效率，Blender将静态概念转化为具有空间感和动态表现力的最终作品。
+      </p>
+      <div class="application-grid">
+        <div class="app-card">
+          <h4>品牌视觉</h4>
+          <p>KV / 海报 / Campaign主视觉</p>
+        </div>
+        <div class="app-card">
+          <h4>数字内容</h4>
+          <p>动态壁纸 / AI短视频 / 平台视觉</p>
+        </div>
+        <div class="app-card">
+          <h4>电商视觉</h4>
+          <p>产品氛围图 / 主图 / 详情页</p>
+        </div>
+        <div class="app-card">
+          <h4>IP / 文创</h4>
+          <p>角色设定 / 图案 / 周边视觉</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 联系方式 ========== -->
+  <section class="section" id="contact">
+    <div class="section-header reveal">
+      <h2 class="section-title">联系与合作</h2>
+      <p class="section-sub">Contact</p>
+    </div>
+    <div class="contact-content">
+      <p class="contact-intro">期待与你一起，把AI视觉做成真正可被使用的内容。</p>
+      <p style="margin-bottom:24px;">
+        <a href="简历.jpg" class="preview-link" target="_blank">下载简历</a>
+      </p>
+      <div class="contact-grid">
+        <div class="contact-item">
+          <h4>电话</h4>
+          <a href="tel:19106187419">19106187419</a>
+        </div>
+        <div class="contact-item">
+          <h4>邮箱</h4>
+          <a href="mailto:ldh2932309813@163.com">ldh2932309813@163.com</a>
+        </div>
+        <div class="contact-item wechat-item" id="wechatTrigger">
+          <h4>微信</h4>
+          <span class="wechat-link">点击查看二维码</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <p class="footer-quote">AI VISUAL DESIGN · BLENDER MOTION · CONTENT COMMUNICATION</p>
+    <p>&copy; 2026 李大海. All rights reserved.</p>
+  </footer>
+
+  <!-- ========== 灯箱 ========== -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      <video src="" controls class="lightbox-video" id="lightbox-video" style="display:none;"></video>
+    </div>
+  </div>
+
+  <!-- ========== 微信二维码弹窗 ========== -->
+  <div class="wechat-popup" id="wechatPopup">
+    <div class="wechat-popup-card">
+      <span class="wechat-popup-close">&times;</span>
+      <h4>微信扫码联系</h4>
+      <!-- 如果你有更高清的二维码图，替换下面src即可 -->
+      <img src="images/slide20_img29.png" alt="微信二维码" class="wechat-qrcode">
+      <p>扫描二维码添加微信</p>
+    </div>
+  </div>
+
+  <!-- ========== 回到顶部按钮 ========== -->
+  <button class="back-to-top" id="backToTop" title="回到顶部">↑</button>
+
+  <script src="js/main.js"></script>
+  
+  <!-- ========== 滚动触发动画 ========== -->
+  <script>
+    // Scroll-triggered reveal animations
+    const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+    
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Optional: unobserve after reveal for performance
+          // revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+    
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // Smooth scroll for anchor links (offset for fixed navbar)
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          const navHeight = document.querySelector('.navbar')?.offsetHeight || 70;
+          const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight;
+          window.scrollTo({ top: targetPos, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // Tilt effect on hero (mouse parallax)
+    const heroTilt = document.getElementById('heroTilt');
+    if (heroTilt) {
+      document.getElementById('hero')?.addEventListener('mousemove', (e) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        heroTilt.style.transform = `perspective(1000px) rotateY(${x * 3}deg) rotateX(${-y * 3}deg)`;
+      });
+      document.getElementById('hero')?.addEventListener('mouseleave', () => {
+        heroTilt.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+      });
+    }
+  </script>
+</body>
+</html>

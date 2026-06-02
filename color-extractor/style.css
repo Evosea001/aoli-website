@@ -1,0 +1,359 @@
+/* ============================================
+   AI 色彩析出工具 — 暗色主题
+   ============================================ */
+
+:root {
+  --bg: #060610;
+  --text: #d0d0e8;
+  --text-secondary: #8888aa;
+  --accent: #8b7cf0;
+  --accent-glow: #6e6ef0;
+  --border: rgba(120, 120, 220, 0.12);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 50px 40px 40px;
+}
+
+/* ===== 标题 ===== */
+.header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.header-tag {
+  font-size: 0.62rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  margin-bottom: 10px;
+}
+
+.header h1 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 300;
+  letter-spacing: 6px;
+  background: linear-gradient(180deg, #e8e0ff, #8b7cf0 60%, #4a30c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.header-sub {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+/* ===== 上传区 ===== */
+.upload-zone {
+  border: 2px dashed rgba(139, 124, 240, 0.3);
+  border-radius: 16px;
+  padding: 50px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.3s, background 0.3s;
+  background: rgba(14, 14, 30, 0.3);
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+  border-color: var(--accent);
+  background: rgba(139, 124, 240, 0.04);
+}
+
+.upload-zone.has-image {
+  padding: 20px;
+}
+
+.upload-icon {
+  font-size: 2.4rem;
+  margin-bottom: 12px;
+  opacity: 0.6;
+}
+
+.upload-zone p {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+}
+
+.upload-zone span {
+  font-size: 0.65rem;
+  color: var(--accent);
+  opacity: 0.5;
+  letter-spacing: 2px;
+}
+
+/* ===== 结果区 ===== */
+.result {
+  margin-top: 30px;
+  animation: fadeIn 0.4s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.preview-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 24px;
+}
+
+.preview-row img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+}
+
+.preview-info p {
+  font-size: 0.85rem;
+  color: var(--text);
+  letter-spacing: 1px;
+}
+
+.preview-info span {
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 2px;
+}
+
+/* ===== 色板 ===== */
+.palette {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.color-swatch {
+  flex: 1;
+  min-width: 75px;
+  aspect-ratio: 1 / 1.4;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 12px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.color-swatch:hover {
+  transform: translateY(-4px) scale(1.04);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.swatch-hex {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  font-family: "SF Mono", "Consolas", monospace;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.swatch-percent {
+  font-size: 0.6rem;
+  letter-spacing: 1px;
+  margin-top: 2px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* 根据颜色亮度自动切换文字颜色 */
+.color-swatch.light-text .swatch-hex,
+.color-swatch.light-text .swatch-percent {
+  color: #fff;
+}
+
+.color-swatch.dark-text .swatch-hex,
+.color-swatch.dark-text .swatch-percent {
+  color: #111;
+}
+
+/* ===== 复制提示 ===== */
+.toast {
+  position: fixed;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 28px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ===== 算法说明 ===== */
+.algo-toggle {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  letter-spacing: 3px;
+  cursor: pointer;
+  padding: 12px;
+  transition: color 0.3s;
+}
+
+.algo-toggle:hover {
+  color: var(--accent);
+}
+
+.algo-detail {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  background: rgba(14, 14, 30, 0.4);
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.algo-detail.open {
+  max-height: 500px;
+  border-color: var(--border);
+  padding: 28px 32px;
+  margin-top: 12px;
+}
+
+.algo-detail h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent);
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.algo-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.algo-step {
+  background: rgba(14, 14, 30, 0.6);
+  border-radius: 8px;
+  padding: 16px 14px;
+  text-align: center;
+}
+
+.step-num {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  line-height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.algo-step p {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.algo-note {
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  opacity: 0.4;
+  text-align: center;
+  letter-spacing: 1px;
+}
+
+/* ===== 底部 ===== */
+.controls {
+  text-align: center;
+  margin-top: 30px;
+}
+
+.ctrl-btn {
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: rgba(14, 14, 30, 0.6);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+  font-family: inherit;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.ctrl-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 16px;
+  }
+
+  .palette {
+    gap: 6px;
+  }
+
+  .color-swatch {
+    min-width: 60px;
+  }
+
+  .algo-steps {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .algo-detail.open {
+    padding: 20px 16px;
+  }
+}

@@ -1,0 +1,322 @@
+/* ============================================
+   AI 视觉工作流 — 交互节点图
+   ============================================ */
+
+:root {
+  --bg: #060610;
+  --text: #d0d0e8;
+  --text-secondary: #8888aa;
+  --accent: #8b7cf0;
+  --accent-glow: #6e6ef0;
+  --border: rgba(120, 120, 220, 0.12);
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ===== 星空画布 ===== */
+#starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px 40px;
+}
+
+/* ===== 标题 ===== */
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.header-tag {
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+}
+
+.header h1 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 300;
+  letter-spacing: 8px;
+  background: linear-gradient(180deg, #e8e0ff, #8b7cf0 60%, #4a30c0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 8px;
+}
+
+.header-sub {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  letter-spacing: 2px;
+}
+
+/* ===== 节点图容器 ===== */
+.graph-wrapper {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.connections {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.conn-path {
+  fill: none;
+  stroke: rgba(139, 124, 240, 0.25);
+  stroke-width: 2;
+  stroke-dasharray: 8 4;
+  animation: flowDash 1s linear infinite;
+}
+
+@keyframes flowDash {
+  to { stroke-dashoffset: -12; }
+}
+
+.flow-dot {
+  filter: drop-shadow(0 0 6px rgba(139, 124, 240, 0.8));
+}
+
+/* ===== 节点行 ===== */
+.nodes-row {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  padding: 20px;
+}
+
+/* ===== 单个节点 ===== */
+.node {
+  width: 160px;
+  padding: 28px 18px 22px;
+  text-align: center;
+  background: linear-gradient(160deg, #0e0e22, #0a0a1a);
+  border: 1px solid rgba(120, 120, 220, 0.15);
+  border-radius: 16px;
+  cursor: pointer;
+  transition: border-color 0.35s, box-shadow 0.35s, transform 0.35s;
+  position: relative;
+  z-index: 2;
+}
+
+.node:hover {
+  transform: translateY(-4px);
+  border-color: rgba(139, 124, 240, 0.4);
+  box-shadow: 0 10px 30px rgba(110, 110, 240, 0.1);
+}
+
+.node.active {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 20px rgba(139, 124, 240, 0.25),
+    0 0 60px rgba(139, 124, 240, 0.08),
+    0 10px 30px rgba(0, 0, 0, 0.3);
+  animation: breathe 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { box-shadow: 0 0 20px rgba(139, 124, 240, 0.25), 0 0 60px rgba(139, 124, 240, 0.08), 0 10px 30px rgba(0, 0, 0, 0.3); }
+  50%      { box-shadow: 0 0 30px rgba(139, 124, 240, 0.4), 0 0 80px rgba(139, 124, 240, 0.15), 0 10px 30px rgba(0, 0, 0, 0.3); }
+}
+
+.node-num {
+  display: inline-block;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  padding: 3px 10px;
+  border: 1px solid rgba(139, 124, 240, 0.25);
+  border-radius: 100px;
+}
+
+.node.active .node-num {
+  background: rgba(139, 124, 240, 0.15);
+  border-color: var(--accent);
+}
+
+.node h3 {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 2px;
+  margin-bottom: 6px;
+  color: var(--text);
+}
+
+.node p {
+  font-size: 0.68rem;
+  color: var(--text-secondary);
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+/* ===== 详情面板 ===== */
+.detail-panel {
+  max-width: 800px;
+  margin: 0 auto 30px;
+  background: rgba(14, 14, 30, 0.6);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.45s ease, opacity 0.35s ease, margin 0.35s;
+}
+
+.detail-panel.open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.detail-inner {
+  padding: 32px 36px;
+}
+
+.detail-step {
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 4px;
+  padding: 3px 12px;
+  border: 1px solid rgba(139, 124, 240, 0.3);
+  border-radius: 100px;
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.detail-title {
+  font-size: 1.3rem;
+  font-weight: 400;
+  letter-spacing: 3px;
+  margin-bottom: 20px;
+}
+
+.detail-body {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.detail-col h4 {
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.detail-col p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  letter-spacing: 1px;
+}
+
+.detail-hint {
+  text-align: center;
+  font-size: 0.62rem;
+  color: var(--text-secondary);
+  opacity: 0.4;
+  letter-spacing: 2px;
+  margin-top: 20px;
+}
+
+/* ===== 控制按钮 ===== */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.ctrl-btn {
+  padding: 10px 24px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: rgba(14, 14, 30, 0.6);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  letter-spacing: 2px;
+  transition: all 0.3s;
+  font-family: inherit;
+  text-decoration: none;
+}
+
+.ctrl-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.ctrl-btn.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.ctrl-btn.primary:hover {
+  background: #9d8fff;
+}
+
+.ctrl-btn.link {
+  font-size: 0.7rem;
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 768px) {
+  .container {
+    padding: 40px 16px 30px;
+  }
+
+  .nodes-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .node {
+    width: 200px;
+  }
+
+  /* 隐藏SVG连接线（移动端用简单的竖排布局） */
+  .connections {
+    display: none;
+  }
+
+  .detail-body {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .detail-inner {
+    padding: 24px 20px;
+  }
+}

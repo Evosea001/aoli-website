@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI创意实验 — 李大海</title>
+  <link rel="stylesheet" href="style.css">
+    <style>
+      /* 游戏视频创作的补充样式 */
+      .prompt-analysis-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px 0;
+      }
+      @media (max-width: 768px) {
+        .prompt-analysis-grid { grid-template-columns: 1fr; }
+      }
+      .prompt-card {
+        background: rgba(124,92,252,0.06);
+        border: 1px solid rgba(124,92,252,0.15);
+        border-radius: 10px;
+        padding: 20px 22px;
+      }
+      .prompt-card h4 {
+        font-size: 1rem;
+        color: #7c5cfc;
+        margin-bottom: 10px;
+        letter-spacing: 1px;
+      }
+      .prompt-card .prompt-text {
+        font-family: 'Courier New', monospace;
+        font-size: 0.875rem;
+        color: #ccc;
+        line-height: 1.8;
+        background: rgba(0,0,0,0.03);
+        padding: 14px 16px;
+        border-radius: 6px;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .prompt-card .prompt-note {
+        font-size: 0.875rem;
+        color: #999;
+        margin-top: 10px;
+        line-height: 1.8;
+      }
+      .prompt-card .prompt-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        padding: 2px 10px;
+        border-radius: 10px;
+        margin-right: 4px;
+        margin-bottom: 4px;
+      }
+      .tag-character { background: rgba(124,92,252,0.12); color: #7c5cfc; }
+      .tag-scene { background: rgba(0,180,216,0.12); color: #00b4d8; }
+      .tag-action { background: rgba(230,57,70,0.12); color: #e63946; }
+      .tag-style { background: rgba(255,183,3,0.12); color: #b37700; }
+      .tag-tech { background: rgba(6,214,160,0.12); color: #06d6a0; }
+
+      .workflow-showcase {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .workflow-step {
+        flex: 1;
+        min-width: 150px;
+        background: #f8f9fd;
+        border-radius: 10px;
+        padding: 18px 18px;
+        text-align: center;
+        border-top: 3px solid #7c5cfc;
+      }
+      .workflow-step .step-num {
+        font-size: 24px;
+        font-weight: 800;
+        color: #7c5cfc;
+        opacity: 0.3;
+      }
+      .workflow-step .step-label {
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #2d3436;
+        margin: 6px 0;
+      }
+      .workflow-step .step-desc {
+        font-size: 0.85rem;
+        color: #888;
+        line-height: 1.6;
+      }
+      .workflow-step .step-tools {
+        font-size: 0.78rem;
+        color: #7c5cfc;
+        margin-top: 8px;
+        letter-spacing: 0.5px;
+      }
+      .insight-card.director {
+        border-left-color: #e63946;
+        background: linear-gradient(135deg, #fafaff 0%, #fef2f2 100%);
+      }
+      .insight-card.director h4 {
+        color: #e63946;
+      }
+      .insight-card.director strong {
+        color: #c0392b;
+      }
+      .tech-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        background: #1a1a2e;
+        color: #fff;
+        font-size: 0.8rem;
+        padding: 4px 12px;
+        border-radius: 4px;
+        margin: 2px;
+      }
+    </style>
+</head>
+<body>
+
+  <canvas id="starfield"></canvas>
+
+  <div class="layout">
+
+    <!-- ====== 侧边导航 ====== -->
+    <nav class="side-nav" id="sideNav">
+      <a href="../index.html" class="back-link">← 返回作品集</a>
+      <div class="nav-title">AI创意实验</div>
+
+      <ul class="nav-list">
+        <li><a href="#characters" class="nav-item">角色视觉设计</a></li>
+        <li><a href="#storyboard" class="nav-item">分镜设计</a></li>
+        <li><a href="#ip-design" class="nav-item">广告IP炫彩视觉</a></li>
+        <li><a href="#video-sb" class="nav-item">产品AI视频分镜</a></li>
+        <li><a href="#skincare" class="nav-item">品牌护肤广告视频</a></li>
+        <li><a href="#game-video" class="nav-item">游戏视频创作</a></li>
+      </ul>
+
+      <div class="nav-footer">
+        <p>ChatGPT image2 · Midjourney · 可灵 · 小云雀AI</p>
+      </div>
+    </nav>
+
+    <!-- ====== 主内容区 ====== -->
+    <main class="content">
+
+      <header class="page-header">
+        <p class="page-tag">CREATIVE AI LAB</p>
+        <h1>AI创意实验</h1>
+        <p class="page-desc">从角色到分镜，从IP到产品广告——AI辅助创意的完整探索。成果展示 + 过程记录 + 个人思考。</p>
+      </header>
+
+      <!-- ========================================== -->
+      <!-- 类别1：角色视觉设计 -->
+      <!-- ========================================== -->
+      <section class="category" id="characters">
+        <div class="cat-header">
+          <span class="cat-num">01</span>
+          <h2>角色视觉设计</h2>
+          <p class="cat-en">Character Visual Design</p>
+        </div>
+
+        <div class="cat-insight">
+          <p>使用ChatGPT image2进行角色概念探索，从文本描述到视觉形象。AI能快速产出多种风格变体，但角色的性格、故事感和辨识度仍需要人来判断和筛选。以下展示了从Prompt设计到成品输出的完整链路。</p>
+        </div>
+
+        <!-- 成果图 -->
+        <h3 class="sub-title">成果展示</h3>
+        <div class="gallery" id="gallery-characters-final">
+          <div class="gallery-item"><img src="../images/角色视觉设计/1.jpg" alt="角色设计" loading="lazy"><span>角色概念</span></div>
+          <div class="gallery-item"><img src="../images/角色视觉设计/2.jpg" alt="角色设计" loading="lazy"><span>形象设定</span></div>
+          <div class="gallery-item"><img src="../images/角色视觉设计/3.jpg" alt="角色设计" loading="lazy"><span>风格探索</span></div>
+          <div class="gallery-item"><img src="../images/角色视觉设计/4.jpg" alt="角色设计" loading="lazy"><span>细节特写</span></div>
+          <div class="gallery-item"><img src="../images/角色视觉设计/5.jpg" alt="角色设计" loading="lazy"><span>姿态变体</span></div>
+          <div class="gallery-item"><img src="../images/角色视觉设计/6.jpg" alt="角色设计" loading="lazy"><span>场景设定</span></div>
+        </div>
+
+        <!-- 过程图 -->
+        <h3 class="sub-title">创作过程</h3>
+        <div class="process-row">
+          <div class="process-item">
+            <img src="../images/角色视觉设计/g1.png" alt="初始Prompt" loading="lazy">
+            <div class="process-label">初始Prompt探索</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/角色视觉设计/g2.png" alt="风格迭代" loading="lazy">
+            <div class="process-label">风格方向迭代</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/角色视觉设计/g3.jpg" alt="精选调优" loading="lazy">
+            <div class="process-label">精选 + 后期调优</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/角色视觉设计/g4.png" alt="最终成品" loading="lazy">
+            <div class="process-label">最终成品输出</div>
+          </div>
+        </div>
+
+        <!-- 个人见解 -->
+        <div class="insight-card">
+          <h4>我的思考</h4>
+          <p>角色设计的核心不是"生成一张好看的图"，而是让角色具有可延展性——同一个角色在不同姿态、不同场景中保持视觉一致性。AI的优势在于快速试错，但角色的人格和故事线需要创作者自己构建。</p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 类别2：分镜设计 -->
+      <!-- ========================================== -->
+      <section class="category" id="storyboard">
+        <div class="cat-header">
+          <span class="cat-num">02</span>
+          <h2>分镜设计</h2>
+          <p class="cat-en">Storyboard Design</p>
+        </div>
+
+        <div class="cat-insight">
+          <p>将文字脚本转化为视觉分镜，AI能快速生成每个镜头的构图参考。但镜头之间的节奏、叙事逻辑和视觉流仍需要人来把控。以下展示一个完整的分镜序列创作过程。</p>
+        </div>
+
+        <h3 class="sub-title">分镜序列展示</h3>
+        <div class="gallery" id="gallery-storyboard-final">
+          <div class="gallery-item"><img src="../images/分镜设计/1.jpg" alt="分镜1" loading="lazy"><span>镜头1 · 建立场景</span></div>
+          <div class="gallery-item"><img src="../images/分镜设计/2.jpg" alt="分镜2" loading="lazy"><span>镜头2 · 人物引入</span></div>
+          <div class="gallery-item"><img src="../images/分镜设计/3.jpg" alt="分镜3" loading="lazy"><span>镜头3 · 细节特写</span></div>
+          <div class="gallery-item"><img src="../images/分镜设计/4.jpg" alt="分镜4" loading="lazy"><span>镜头4 · 冲突展现</span></div>
+          <div class="gallery-item"><img src="../images/分镜设计/5.jpg" alt="分镜5" loading="lazy"><span>镜头5 · 高潮定格</span></div>
+          <div class="gallery-item"><img src="../images/分镜设计/6.jpg" alt="分镜6" loading="lazy"><span>镜头6 · 结尾收束</span></div>
+        </div>
+
+        <h3 class="sub-title">分镜脚本 → 视觉转化</h3>
+        <div class="process-row">
+          <div class="process-item">
+            <img src="../images/分镜设计/g1.jpg" alt="文字脚本" loading="lazy">
+            <div class="process-label">文字脚本</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/分镜设计/g2.jpg" alt="AI生成" loading="lazy">
+            <div class="process-label">AI生成构图</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/分镜设计/g3.jpg" alt="筛选编排" loading="lazy">
+            <div class="process-label">筛选 + 镜头编排</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/分镜设计/g4.jpg" alt="完稿" loading="lazy">
+            <div class="process-label">分镜完稿</div>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <h4>我的思考</h4>
+          <p>AI分镜最大的价值是"可视化沟通"——在正式制作前就能和团队/客户对齐视觉方向。但AI生成的镜头仍然存在构图重复、人物一致性不足的问题，需要人工筛选和手动补充关键帧。</p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 类别3：广告IP炫彩视觉 -->
+      <!-- ========================================== -->
+      <section class="category" id="ip-design">
+        <div class="cat-header">
+          <span class="cat-num">03</span>
+          <h2>广告IP形象 · 炫彩视觉</h2>
+          <p class="cat-en">Advertising IP · Colorful Visual</p>
+        </div>
+
+        <div class="cat-insight">
+          <p>为品牌打造具有辨识度的IP形象，融合炫彩质感与商业表达。AI能快速生成多种配色、材质和风格的IP变体，帮助品牌在早期阶段高效探索视觉方向。</p>
+        </div>
+
+        <h3 class="sub-title">IP形象展示</h3>
+        <div class="gallery" id="gallery-ip-final">
+          <div class="gallery-item"><img src="../images/广告IP形象/1.jpg" alt="IP炫彩" loading="lazy"><span>IP基础形象</span></div>
+          <div class="gallery-item"><img src="../images/广告IP形象/2.jpg" alt="IP炫彩" loading="lazy"><span>炫彩配色方案</span></div>
+          <div class="gallery-item"><img src="../images/广告IP形象/3.jpg" alt="IP炫彩" loading="lazy"><span>材质质感探索</span></div>
+          <div class="gallery-item"><img src="../images/广告IP形象/4.jpg" alt="IP炫彩" loading="lazy"><span>品牌场景应用</span></div>
+          <div class="gallery-item"><img src="../images/广告IP形象/5.jpg" alt="IP炫彩" loading="lazy"><span>周边延展</span></div>
+          <div class="gallery-item"><img src="../images/广告IP形象/6.jpg" alt="IP炫彩" loading="lazy"><span>动态表情包</span></div>
+        </div>
+
+        <h3 class="sub-title">配色迭代过程</h3>
+        <div class="process-row">
+          <div class="process-item">
+            <img src="../images/广告IP形象/屏幕截图 2026-05-17 183402.png" alt="单色版" loading="lazy">
+            <div class="process-label">单色线稿</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/广告IP形象/g2.jpg" alt="配色" loading="lazy">
+            <div class="process-label">AI生成配色方案</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/广告IP形象/g3.jpg" alt="炫彩" loading="lazy">
+            <div class="process-label">炫彩质感增强</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/广告IP形象/g4.jpg" alt="终稿" loading="lazy">
+            <div class="process-label">品牌适配终稿</div>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <h4>我的思考</h4>
+          <p>广告IP的难点在于"辨识度"和"延展性"的平衡。AI可以快速产出炫目的视觉效果，但IP是否适合缩小到App图标、放大到户外广告，需要设计师的实用判断。"炫彩"不是目的，品牌记忆度才是。</p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 类别4：产品AI视频分镜 -->
+      <!-- ========================================== -->
+      <section class="category" id="video-sb">
+        <div class="cat-header">
+          <span class="cat-num">04</span>
+          <h2>产品AI视频分镜</h2>
+          <p class="cat-en">Product AI Video Storyboard</p>
+        </div>
+
+        <div class="cat-insight">
+          <p>用AI将产品广告创意快速转化为可视化分镜。从创意脚本到视觉预演，AI缩短了从文字到画面的距离，让团队在正式拍摄前就能看到大致效果。</p>
+        </div>
+
+        <h3 class="sub-title">分镜展示</h3>
+        <div class="gallery" id="gallery-video-final">
+          <div class="gallery-item"><img src="../images/产品AI视频分镜/1.jpg" alt="视频分镜" loading="lazy"><span>开场·产品亮相</span></div>
+          <div class="gallery-item"><img src="../images/产品AI视频分镜/2.jpg" alt="视频分镜" loading="lazy"><span>场景·使用展示</span></div>
+          <div class="gallery-item"><img src="../images/产品AI视频分镜/3.jpg" alt="视频分镜" loading="lazy"><span>特写·细节强调</span></div>
+          <div class="gallery-item"><img src="../images/产品AI视频分镜/4.jpg" alt="视频分镜" loading="lazy"><span>对比·效果呈现</span></div>
+          <div class="gallery-item"><img src="../images/产品AI视频分镜/5.jpg" alt="视频分镜" loading="lazy"><span>结尾·品牌定格</span></div>
+          <div class="gallery-item"><img src="../images/产品AI视频分镜/6.jpg" alt="视频分镜" loading="lazy"><span>动态·转场示意</span></div>
+        </div>
+
+        <div class="insight-card">
+          <h4>我的思考</h4>
+          <p>产品视频分镜的核心是"信息传递效率"——每个镜头要传递什么信息，停留几秒，用什么构图。AI能快速填充画面内容，但镜头顺序、信息层级和节奏把控仍然依赖创作者的叙事能力。</p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 类别5：品牌护肤广告视频 -->
+      <!-- ========================================== -->
+      <section class="category" id="skincare">
+        <div class="cat-header">
+          <span class="cat-num">05</span>
+          <h2>品牌护肤广告视频</h2>
+          <p class="cat-en">Skincare Brand · Advertising Video Storyboard</p>
+        </div>
+
+        <div class="cat-insight">
+          <p>为护肤品牌打造广告视频分镜，用AI快速生成产品视觉方案。从产品质感到使用场景，AI辅助创意在品牌调性和视觉冲击力之间找到平衡。</p>
+        </div>
+
+        <h3 class="sub-title">分镜展示</h3>
+        <div class="gallery" id="gallery-skincare-final">
+          <div class="gallery-item"><img src="../images/品牌护肤广告/4.jpg" alt="产品亮相" loading="lazy"><span>产品亮相 · 质感特写</span></div>
+          <div class="gallery-item"><img src="../images/品牌护肤广告/5.jpg" alt="使用场景" loading="lazy"><span>使用场景 · 氛围营造</span></div>
+        </div>
+
+        <h3 class="sub-title">广告视频</h3>
+        <div class="video-showcase" style="margin-bottom:28px;">
+          <video src="../videos/护肤类.mp4" controls preload="metadata" style="width:100%;max-width:700px;border-radius:8px;"></video>
+        </div>
+
+        <h3 class="sub-title">创作过程</h3>
+        <div class="process-row">
+          <div class="process-item">
+            <img src="../images/品牌护肤广告/1.png" alt="步骤1" loading="lazy">
+            <div class="process-label">品牌需求Brief</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/品牌护肤广告/2.png" alt="步骤2" loading="lazy">
+            <div class="process-label">AI初稿探索</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/品牌护肤广告/3.png" alt="步骤3" loading="lazy">
+            <div class="process-label">风格方向筛选</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/品牌护肤广告/4.jpg" alt="步骤4" loading="lazy">
+            <div class="process-label">品牌调性精修</div>
+          </div>
+          <span class="process-arrow">→</span>
+          <div class="process-item">
+            <img src="../images/品牌护肤广告/5.jpg" alt="步骤5" loading="lazy">
+            <div class="process-label">广告分镜定稿</div>
+          </div>
+        </div>
+
+        <div class="insight-card">
+          <h4>我的思考</h4>
+          <p>护肤类广告的核心在于"质感"和"信任感"——产品质地的光泽、使用后的肌肤状态、场景的氛围感，都需要精准的视觉表达。AI能快速生成符合品牌调性的画面方案，但最终的选择和精细打磨仍需要设计师的审美判断。</p>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- 类别6：游戏视频创作（新增） -->
+      <!-- ========================================== -->
+      <section class="category" id="game-video">
+        <div class="cat-header">
+          <span class="cat-num">06</span>
+          <h2>游戏视频创作</h2>
+          <p class="cat-en">Game Video · Japanese Battle Animation</p>
+        </div>
+
+        <div class="cat-insight">
+          <p>日系战斗风格游戏短片创作——从分镜脚本到角色一致性控制，再到AI生成+人工剪辑的完整管线。本项目的核心挑战在于：如何用AI工具链在保持角色视觉一致性的前提下，实现多镜头战斗叙事的流畅衔接。</p>
+        </div>
+
+        <!-- 1. 制作管线总览 -->
+        <h3 class="sub-title">制作管线</h3>
+        <div class="workflow-showcase">
+          <div class="workflow-step">
+            <div class="step-num">1</div>
+            <div class="step-label">分镜脚本</div>
+            <div class="step-desc">文字脚本→镜头拆解<br>动作序列→视觉预演</div>
+            <div class="step-tools">自研Prompt工具</div>
+          </div>
+          <div class="workflow-step" style="border-top-color:#00b4d8;">
+            <div class="step-num">2</div>
+            <div class="step-label">角色·场景生成</div>
+            <div class="step-desc">角色一致性控制<br>场景风格定调</div>
+            <div class="step-tools">ChatGPT image2</div>
+          </div>
+          <div class="workflow-step" style="border-top-color:#06d6a0;">
+            <div class="step-num">3</div>
+            <div class="step-label">沉浸式短片合成</div>
+            <div class="step-desc">图生视频→动态化<br>镜头运动→动作连贯</div>
+            <div class="step-tools">小云雀AI</div>
+          </div>
+          <div class="workflow-step" style="border-top-color:#e63946;">
+            <div class="step-num">4</div>
+            <div class="step-label">后期剪辑</div>
+            <div class="step-desc">节奏控制·音乐配乐<br>转场衔接·最终成片</div>
+            <div class="step-tools">剪映</div>
+          </div>
+        </div>
+
+        <!-- 2. 角色与场景展示 -->
+        <h3 class="sub-title">角色设计 · 场景设定</h3>
+        <div class="gallery" id="gallery-game-final">
+          <div class="gallery-item"><img src="../images/游戏视频创作/人物.png" alt="角色设计" loading="lazy"><span>战斗角色设定</span></div>
+          <div class="gallery-item"><img src="../images/游戏视频创作/场景.png" alt="场景设计" loading="lazy"><span>战斗场景氛围</span></div>
+        </div>
+
+        <!-- 3. 提示词深度分析 -->
+        <h3 class="sub-title">提示词策略分析</h3>
+        <div class="prompt-analysis-grid">
+
+          <div class="prompt-card">
+            <h4>🎯 角色一致性控制</h4>
+            <div class="prompt-text" style="font-size:11px;">
+<span class="prompt-tag tag-character">角色</span><span class="prompt-tag tag-style">日系战斗</span>
+核心策略：固定角色描述锚点
+- 发型·发色·瞳色·服饰特征统一
+- 战斗姿态关键词固化
+- 面部特征避免随机漂移
+
+通过在每个分镜的提示词中植入
+相同的角色锚定描述块，确保
+ChatGPT image2在跨镜头生成时
+角色外观保持可辨识的一致。
+            </div>
+            <div class="prompt-note">
+              关键设计：将角色描述拆解为<strong>「不可变锚点」</strong>（发型、服饰、配色）和<strong>「可变动态」</strong>（姿态、表情、视角），前者在任何镜头中保持不变，后者根据分镜需求调整。这是解决AI角色不一致问题的核心方法论。
+            </div>
+          </div>
+
+          <div class="prompt-card">
+            <h4>⚡ 分镜脚本驱动</h4>
+            <div class="prompt-text" style="font-size:11px;">
+<span class="prompt-tag tag-action">动作</span><span class="prompt-tag tag-scene">场景</span>
+分镜结构化提示词:
+[镜头号][景别][动作描述]
+[角色状态][场景语境]
+
+示例结构：
+"中景 · 角色拔刀冲刺，
+衣摆扬起，尘土飞溅，
+日系热血动画风格"
+
+每个镜头独立生成，
+但通过相同的角色锚点
+和统一的色彩调性
+保证跨镜头叙事连贯。
+            </div>
+            <div class="prompt-note">
+              核心逻辑：每个分镜的提示词不是孤立的"生成一张好图"，而是<strong>「叙事链条上的一个节点」</strong>。前一帧的结束姿态决定后一帧的起始姿态，在提示词层面实现了最基础的"动作衔接"——这是从"AI出图"到"AI叙事"的关键跃迁。
+            </div>
+          </div>
+
+          <div class="prompt-card">
+            <h4>🎨 画面风格统一</h4>
+            <div class="prompt-text" style="font-size:11px;">
+<span class="prompt-tag tag-style">风格</span><span class="prompt-tag tag-tech">控制</span>
+风格锚定策略：
+- 全局风格词固化:
+  "Japanese anime style,
+  cel shading, dramatic
+  lighting, dynamic composition"
+  
+- 色调与情绪词控制:
+  战斗场景→高饱和·对比强烈
+  过渡场景→柔光·偏冷调
+
+- 避免风格词漂移:
+  每轮生成追加相同
+  的风格描述后缀
+            </div>
+            <div class="prompt-note">
+              优化效果：风格词的"锚定-可变"分离设计与角色一致性策略同构。全局风格词作为<strong>「视觉基调」</strong>固定不变，每轮仅调整<strong>「场景情绪词」</strong>（如"紧张"→"爆发"→"收束"），既保证了整部短片视觉语言的统一性，又为叙事节奏提供了情绪梯度。
+            </div>
+          </div>
+
+          <div class="prompt-card">
+            <h4>🎬 动作衔接设计</h4>
+            <div class="prompt-text" style="font-size:11px;">
+<span class="prompt-tag tag-action">动作</span><span class="prompt-tag tag-tech">衔接</span>
+跨镜头动作衔接策略:
+1. 提取上一镜头结束姿态
+   的动势关键词
+2. 植入下一镜头起始描述
+3. 使用连续动作动词链:
+   "冲刺→挥砍→格挡→反击"
+   
+   (每个动词对应一个镜头，
+   动词链本身就是动作叙事)
+   
+4. 小云雀AI图生视频将
+   静态构图动态化
+            </div>
+            <div class="prompt-note">
+              关键突破：AI图生视频（小云雀AI）将静态构图转化为动态片段后，我用<strong>剪映</strong>做最后的节奏缝合——调整每个镜头的时长、添加转场特效、配乐踩点。这一环节是"AIGC导演"的核心工作：<strong>AI负责生成素材，人负责把控节奏和叙事。</strong>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 4. 视频展示 -->
+        <h3 class="sub-title">最终成片</h3>
+        <div class="video-showcase" style="margin-bottom:28px;">
+          <video src="../videos/游戏类.mp4" controls preload="metadata" style="width:100%;max-width:700px;border-radius:8px;"></video>
+        </div>
+
+        <!-- 5. AIGC导演视角深度分析 -->
+        <div class="insight-card director">
+          <h4>🎬 AIGC导演视角 · 提示词优化深度解析</h4>
+          <p>
+            <strong>从"提示词工程师"到"AI导演"的思维跃迁</strong>
+          </p>
+          <p style="margin-top:10px;">
+            大多数AI创作者停留在"怎么写出更好的提示词"这个层面——追求单张画面的视觉冲击力。但在这个游戏短片项目中，我面临的真正问题是：<strong>怎么让AI为一段完整的叙事服务，而不是为一张图服务？</strong>
+          </p>
+          <p style="margin-top:10px;">
+            <strong>一、角色一致性的本质是"导演选角"</strong><br>
+            传统AI创作中角色"每张长得不一样"被当作技术缺陷。我将其重构为一个导演思维问题：如果我要拍一场战斗戏，我<em>必须先定角</em>——角色的身高、体型、服饰配色、气质特征是剧本的组成部分，不是可以随意变动的。因此我的提示词策略是：每个分镜都携带完整的角色锚定描述，不允许AI"自由发挥"角色外观。这本质上是对AI生成自由度的一种<strong>受控约束</strong>——不是限制创意，而是把自由度从"角色长什么样"转移到"角色在这一帧的情绪和动势"上。
+          </p>
+          <p style="margin-top:10px;">
+            <strong>二、动作衔接的秘密不在图像里，在提示词的"帧间逻辑"</strong><br>
+            单帧画面再精美，镜头之间没有动势承接就会产生"切换感"。我的解决方案是：将战斗动作分解为动词链（冲刺→挥砍→格挡→反击），每个动词对应一个分镜的提示词核心。后一个镜头的提示词会<em>引用前一个镜头的结束状态</em>作为起始条件。这相当于在提示词层面建立了一个<strong>隐式的帧间约束</strong>——AI生成的不再是独立画面，而是一条叙事链上的连续帧采样。
+          </p>
+          <p style="margin-top:10px;">
+            <strong>三、风格统一的底层逻辑是"色彩叙事"</strong><br>
+            日系战斗动画最容易被忽视的细节是：激烈打斗场景使用高饱和暖色（红/橙/黄）营造紧张感，情绪转折场景使用冷色（蓝/紫）形成呼吸节奏。我在提示词中有意识地设计了<strong>"情绪色调梯度"</strong>——不是全场一个风格，而是战斗升级→爆发→收尾三个阶段的色调递进。AI生成的画面天然有了"色彩情感弧线"，这是剪映后期调色前就能在素材层面实现的叙事力量。
+          </p>
+          <p style="margin-top:10px;">
+            <strong>四、工具链的协同效率</strong><br>
+            自研Prompt工具（结构化提示词模板 + 分镜管理）→ ChatGPT image2（高质量图生成）→ 小云雀AI（图生视频动态化）→ 剪映（节奏·配乐·转场）。这条管线中，<strong>我的Prompt工具承担了"工业化管理"的角色</strong>——它确保每个镜头的提示词结构一致、角色锚点不遗漏、风格词不漂移。这不是一个AI工具替代人类创作者的故事，而是一个<strong>人类创作者用自研工具武装自己、驾驭多个AI工具完成完整叙事</strong>的故事。
+          </p>
+          <p style="margin-top:12px; color:#666; border-top:1px solid #eee; padding-top:10px;">
+            <strong>总结：</strong>这个项目的核心价值不是"AI帮我做出了一个视频"，而是<strong>我建立了一套从叙事意图到AI生成指令再到后期落地的完整方法论</strong>。每一个提示词都不是孤立的生成指令，而是一个导演在跟AI说"这一帧我要什么"。
+          </p>
+        </div>
+
+      </section>
+
+      <!-- 底部 -->
+      <footer class="page-footer">
+        <a href="../index.html" class="back-btn">← 返回作品集主站</a>
+        <p>AI创意实验 · 持续更新中</p>
+      </footer>
+
+    </main>
+  </div>
+
+  <!-- 灯箱 -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <img src="" alt="" id="lightboxImg">
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

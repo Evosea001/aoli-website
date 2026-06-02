@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>动态壁纸预览 — 华为高校动态壁纸设计</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- 星空粒子背景 -->
+  <canvas id="starfield"></canvas>
+
+  <!-- ========== Hero ========== -->
+  <header class="hero">
+    <p class="hero-tag">AI VISUAL DESIGN · MOTION WALLPAPER · 2025</p>
+    <h1>华为高校动态壁纸设计</h1>
+    <p class="hero-desc">云南民族文化 × 东方幻想美学 × 多终端动态壁纸方案</p>
+    <p class="hero-hint">悬停设备查看详情 · 点击放大播放</p>
+  </header>
+
+  <!-- ========== 设备展示墙 ========== -->
+  <section class="devices">
+
+    <!-- 手机 -->
+    <div class="device-wrapper" data-device="手机端 · 动态壁纸">
+      <div class="device phone">
+        <div class="device-screen">
+          <video src="../videos/动态壁纸.mp4" muted loop playsinline></video>
+        </div>
+        <div class="device-notch"></div>
+      </div>
+      <span class="device-label">手机</span>
+      <span class="device-spec">6.7" · 20:9</span>
+    </div>
+
+    <!-- 折叠屏 -->
+    <div class="device-wrapper" data-device="折叠屏 · 展开态">
+      <div class="device foldable">
+        <div class="device-screen">
+          <video src="../videos/动态壁纸.mp4" muted loop playsinline></video>
+        </div>
+        <div class="fold-hinge"></div>
+      </div>
+      <span class="device-label">折叠屏</span>
+      <span class="device-spec">8.0" · 展开态</span>
+    </div>
+
+    <!-- 桌面/平板 -->
+    <div class="device-wrapper" data-device="桌面场景 · 品牌质感">
+      <div class="device tablet">
+        <div class="device-screen">
+          <video src="../videos/动态壁纸.mp4" muted loop playsinline></video>
+        </div>
+      </div>
+      <span class="device-label">桌面场景</span>
+      <span class="device-spec">16:9 · 品牌适配</span>
+    </div>
+
+    <!-- 车机 -->
+    <div class="device-wrapper" data-device="车机延展 · 横向场景">
+      <div class="device car">
+        <div class="device-screen">
+          <video src="../videos/动态壁纸.mp4" muted loop playsinline></video>
+        </div>
+      </div>
+      <span class="device-label">车机延展</span>
+      <span class="device-spec">28:9 · 带鱼屏中控</span>
+    </div>
+  </section>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="footer">
+    <a href="../index.html" class="back-link">← 返回作品集主站</a>
+    <p>&copy; 2026 李大海 · 华为高校动态壁纸设计项目</p>
+  </footer>
+
+  <!-- ========== 全屏灯箱 ========== -->
+  <div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <span class="lightbox-label" id="lightboxLabel"></span>
+    <video src="" controls autoplay loop playsinline class="lightbox-video" id="lightboxVideo"></video>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
